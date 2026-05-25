@@ -1,0 +1,185 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background-color: #F0EDE5;
+    color: #1E1E1E;
+    font-family: 'DM Sans', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: #004643;
+    color: #ffffff;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F0EDE5;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #D9D9D9;
+    border-radius: 99px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #004643;
+  }
+}
+
+@layer components {
+  .card {
+    @apply bg-white rounded-xl border border-border shadow-card;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white px-5 py-2.5 rounded-lg font-medium text-sm hover:bg-primary-light transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-primary px-5 py-2.5 rounded-lg font-medium text-sm border border-primary hover:bg-primary hover:text-white transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed active:scale-95;
+  }
+
+  .btn-ghost {
+    @apply text-text-muted px-4 py-2 rounded-lg text-sm font-medium hover:bg-bg hover:text-text transition-all duration-200;
+  }
+
+  .input-field {
+    @apply w-full px-4 py-3 bg-white border border-border rounded-lg text-sm text-text placeholder:text-text-light focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all duration-200;
+  }
+
+  .label {
+    @apply block text-sm font-medium text-text mb-1.5;
+  }
+
+  .section-heading {
+    @apply font-display text-3xl md:text-4xl text-text leading-tight;
+  }
+
+  .prose-custom {
+    @apply prose prose-sm max-w-none prose-headings:font-display prose-headings:text-text prose-p:text-text-muted prose-strong:text-text prose-code:text-primary prose-code:bg-bg prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-pre:bg-text prose-pre:text-white;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Markdown prose overrides */
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3 {
+  font-family: 'DM Serif Display', Georgia, serif;
+  color: #1E1E1E;
+  margin-top: 1.25em;
+  margin-bottom: 0.5em;
+}
+
+.markdown-body h1 { font-size: 1.5rem; }
+.markdown-body h2 { font-size: 1.25rem; }
+.markdown-body h3 { font-size: 1.1rem; }
+
+.markdown-body p {
+  color: #4B5563;
+  line-height: 1.75;
+  margin-bottom: 0.875em;
+}
+
+.markdown-body ul, .markdown-body ol {
+  padding-left: 1.5em;
+  margin-bottom: 0.875em;
+  color: #4B5563;
+}
+
+.markdown-body li {
+  margin-bottom: 0.375em;
+  line-height: 1.65;
+}
+
+.markdown-body code {
+  background: #F0EDE5;
+  color: #004643;
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85em;
+}
+
+.markdown-body pre {
+  background: #1E1E1E;
+  color: #F0EDE5;
+  padding: 1.25em;
+  border-radius: 0.75rem;
+  overflow-x: auto;
+  margin: 1em 0;
+}
+
+.markdown-body pre code {
+  background: transparent;
+  color: inherit;
+  padding: 0;
+}
+
+.markdown-body strong {
+  color: #1E1E1E;
+  font-weight: 600;
+}
+
+.markdown-body blockquote {
+  border-left: 3px solid #004643;
+  padding-left: 1em;
+  margin-left: 0;
+  color: #6B7280;
+  font-style: italic;
+}
+
+/* Skeleton shimmer */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(90deg, #e8e5de 25%, #f0ede5 50%, #e8e5de 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.6s infinite;
+  border-radius: 0.5rem;
+}
+
+/* Progress ring */
+.progress-ring-circle {
+  transition: stroke-dashoffset 1s ease-in-out;
+  transform: rotate(-90deg);
+  transform-origin: 50% 50%;
+}
+
+/* Page transition */
+.page-enter {
+  animation: fadeIn 0.3s ease-out;
+}
