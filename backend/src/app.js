@@ -7,13 +7,13 @@ app.use(cors({
     credentials:true
 }))
 
-// const path = require('path');
+const path = require('path');
 
-// ✅ Correct
-// app.use(express.static(path.join(__dirname, '..', 'public')));
-// app.get('/{*path}', (req, res) => {
-//   res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
-// });
+
+app.use(express.static(path.join(__dirname, '..', 'public')));
+app.get('/{*path}', (req, res) => {
+  res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+});
 
 app.use(express.json())
 app.use(cookieParser())
