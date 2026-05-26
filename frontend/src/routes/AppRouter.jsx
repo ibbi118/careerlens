@@ -15,10 +15,10 @@ import ReportDetail from '../pages/ReportDetail';
 import ResumeDownload from '../pages/ResumeDownload';
 import NotFound from '../pages/NotFound';
 
-// Redirect authenticated users away from auth pages
+// Redirect authenticated users away from login/register
 const AuthRoute = ({ children }) => {
   const { isAuthenticated, isLoading } = useAuth();
-  if (isLoading) return null;
+  if (isLoading) return null;                                    // ← wait for auth check
   return isAuthenticated ? <Navigate to="/dashboard" replace /> : children;
 };
 
@@ -31,7 +31,7 @@ const AppRoutes = () => (
       <Route path="/register" element={<AuthRoute><Register /></AuthRoute>} />
     </Route>
 
-    {/* Protected */}
+    {/* Protected — DashboardLayout contains Outlet */}
     <Route element={<ProtectedRoute><DashboardLayout /></ProtectedRoute>}>
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/generate" element={<Generate />} />
@@ -40,7 +40,6 @@ const AppRoutes = () => (
       <Route path="/reports/:id/resume" element={<ResumeDownload />} />
     </Route>
 
-    {/* 404 */}
     <Route path="*" element={<NotFound />} />
   </Routes>
 );

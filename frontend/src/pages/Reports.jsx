@@ -21,18 +21,26 @@ const Reports = () => {
   const [sortBy, setSortBy] = useState('newest');
   const [downloadingId, setDownloadingId] = useState(null);
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await reportsAPI.getAll();
-        setReports(data.reports || data || []);
-      } catch {
-        toast.error('Failed to load reports');
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
+ useEffect(() => {
+  (async () => {
+    try {
+      const { data } = await reportsAPI.getAll();
+      const list = Array.isArray(data)
+        ? data
+        : Array.isArray(data.reports)
+        ? data.reports
+        : Array.isArray(data.data)
+        ? data.data
+        : [];
+      setReports(list);
+    } catch {
+      toast.error('Failed to load reports');
+      setReports([]);
+    } finally {
+      setLoading(false);
+    }
+  })();
+}, []);
 
   const handleDownload = async (e, id) => {
     e.preventDefault();

@@ -30,17 +30,25 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    (async () => {
-      try {
-        const { data } = await reportsAPI.getAll();
-        setReports(data.reports || data || []);
-      } catch {
-        setReports([]);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
+  (async () => {
+    try {
+      const { data } = await reportsAPI.getAll();
+      // Handle any response shape from backend
+      const list = Array.isArray(data)
+        ? data
+        : Array.isArray(data.reports)
+        ? data.reports
+        : Array.isArray(data.data)
+        ? data.data
+        : [];
+      setReports(list);
+    } catch {
+      setReports([]);
+    } finally {
+      setLoading(false);
+    }
+  })();
+}, []);
 
   const avgScore = reports.length
     ? Math.round(reports.reduce((s, r) => s + (r.matchScore || r.match_score || 0), 0) / reports.length)

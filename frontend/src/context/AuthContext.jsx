@@ -6,7 +6,7 @@ const AuthContext = createContext(null);
 const initialState = {
   user: null,
   isAuthenticated: false,
-  isLoading: true,
+  isLoading: true,   // starts true — wait for getMe to complete
 };
 
 function authReducer(state, action) {
@@ -27,21 +27,17 @@ export function AuthProvider({ children }) {
 
   const fetchUser = async () => {
     try {
-      dispatch({ type: 'SET_LOADING', payload: true });
       const { data } = await authAPI.getMe();
       dispatch({ type: 'SET_USER', payload: data.user || data });
     } catch {
-      dispatch({ type: 'CLEAR_USER' });
+      dispatch({ type: 'CLEAR_USER' });   // ← always resolves isLoading to false
     }
   };
 
   useEffect(() => {
     fetchUser();
 
-    const handleUnauthorized = () => {
-      dispatch({ type: 'CLEAR_USER' });
-    };
-
+    const handleUnauthorized = () => dispatch({ type: 'CLEAR_USER' });
     window.addEventListener('auth:unauthorized', handleUnauthorized);
     return () => window.removeEventListener('auth:unauthorized', handleUnauthorized);
   }, []);
